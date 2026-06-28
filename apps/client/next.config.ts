@@ -1,13 +1,8 @@
-import type { NextConfig } from 'next';
-
-const nextConfig: NextConfig = {
-  /* config options here */
-  eslint: {
-    ignoreDuringBuilds: true,
+const nextConfig = {
+  output: 'export', // This tells Next.js to create an /out directory
+  images: {
+    unoptimized: true, // Required for static export
   },
-  typescript: {
-    ignoreBuildErrors: true,
-  }
 };
 
 export default nextConfig;

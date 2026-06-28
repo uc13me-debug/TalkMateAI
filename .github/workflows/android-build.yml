@@ -22,15 +22,16 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       
-      # Force install Capacitor CLI just in case
       - name: Install Capacitor CLI
         run: pnpm add -g @capacitor/cli
 
       - name: Build Web Assets
-        run: pnpm --filter @talkmateai/client run build
+        working-directory: ./apps/client
+        run: pnpm run build
 
       - name: Sync Capacitor
-        run: pnpm --filter @talkmateai/client exec cap sync android
+        working-directory: ./apps/client
+        run: npx cap sync android
         
       - name: Build APK
         working-directory: ./apps/client/android
