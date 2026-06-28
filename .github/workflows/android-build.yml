@@ -22,9 +22,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       
-      - name: Install Capacitor CLI
-        run: pnpm add -g @capacitor/cli
-
       - name: Build Web Assets
         working-directory: ./apps/client
         run: pnpm run build
