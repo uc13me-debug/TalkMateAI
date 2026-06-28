@@ -40,18 +40,19 @@ jobs:
         run: pnpm run build
 
       - name: Synchronize with Capacitor
+        working-directory: ./apps/client
         run: pnpm exec cap sync android
 
       - name: Grant Execute Permission to Gradle Wrapper
-        working-directory: ./android
+        working-directory: ./apps/client/android
         run: chmod +x gradlew
 
       - name: Compile Native Android APK
-        working-directory: ./android
+        working-directory: ./apps/client/android
         run: ./gradlew assembleDebug
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: talkmateai-debug-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: apps/client/android/app/build/outputs/apk/debug/app-debug.apk
