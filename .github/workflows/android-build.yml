@@ -8,50 +8,27 @@ on:
 
 jobs:
   build-apk:
-    name: Compile Android APK
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout source code
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
           version: 9
-
-      - name: Setup Node.js Environment
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'pnpm'
-
-      - name: Setup Java Development Kit
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-
-      - name: Install Node Dependencies
+      - name: Install dependencies
         run: pnpm install
-
-      - name: Build Web Assets
-        run: pnpm run build
-
-      - name: Synchronize with Capacitor
-        working-directory: ./apps/client
-        run: pnpm --filter ./apps/client exec cap sync android
-
-      - name: Grant Execute Permission to Gradle Wrapper
-        working-directory: ./apps/client/android
-        run: chmod +x gradlew
-
-      - name: Compile Native Android APK
+      - name: Build
+        run: pnpm --filter @talkmateai/client run build
+      - name: Sync
+        run: pnpm --filter @talkmateai/client exec cap sync android
+      - name: Build APK
         working-directory: ./apps/client/android
         run: ./gradlew assembleDebug
-
-      - name: Upload APK Artifact
+      - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: talkmateai-debug-apk
+          name: app-debug
           path: apps/client/android/app/build/outputs/apk/debug/app-debug.apk
