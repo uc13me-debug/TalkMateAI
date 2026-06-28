@@ -26,10 +26,14 @@ jobs:
         working-directory: ./apps/client
         run: pnpm run build
 
-      - name: Sync Capacitor
+- name: Sync Capacitor
         working-directory: ./apps/client
         run: npx cap sync android
         
+      - name: Grant Execute Permission
+        working-directory: ./apps/client/android
+        run: chmod +x gradlew
+
       - name: Build APK
         working-directory: ./apps/client/android
         run: ./gradlew assembleDebug
