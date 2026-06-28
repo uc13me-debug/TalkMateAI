@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">TalkMateAI</string>
+    <string name="title_activity_main">TalkMateAI</string>
+    <string name="package_name">com.talkmateai.app</string>
+    <string name="custom_url_scheme">com.talkmateai.app</string>
+</resources>

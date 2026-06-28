@@ -1,0 +1,6 @@
+{
+  "appId": "com.talkmateai.app",
+  "appName": "TalkMateAI",
+  "webDir": "out",
+  "bundledWebRuntime": false
+}
