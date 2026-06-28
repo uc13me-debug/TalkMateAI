@@ -18,16 +18,25 @@ jobs:
         with:
           node-version: '22'
           cache: 'pnpm'
+      
       - name: Install dependencies
-        run: pnpm install
-      - name: Build
+        run: pnpm install --frozen-lockfile
+      
+      # Force install Capacitor CLI just in case
+      - name: Install Capacitor CLI
+        run: pnpm add -g @capacitor/cli
+
+      - name: Build Web Assets
         run: pnpm --filter @talkmateai/client run build
-      - name: Sync
+
+      - name: Sync Capacitor
         run: pnpm --filter @talkmateai/client exec cap sync android
+        
       - name: Build APK
         working-directory: ./apps/client/android
         run: ./gradlew assembleDebug
-      - name: Upload
+
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
